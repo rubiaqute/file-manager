@@ -3,6 +3,7 @@ export const errorHandler = function (e) {
     console.log(e.message);
   }
 };
+
 export class OperationFailedError extends Error {
   constructor() {
     super();

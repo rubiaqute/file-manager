@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import * as path from "path";
-import { resolve } from "path";
 import { OperationFailedError } from "./errors.js";
 
 export const cd = async (string, currentPath) => {
@@ -8,6 +7,7 @@ export const cd = async (string, currentPath) => {
 
   if (pathName && path.isAbsolute(pathName)) {
     const result = path.resolve(pathName);
+
     return await new Promise((resolve, reject) => {
       fs.access(result, (error) => {
         if (error) reject(new OperationFailedError());
@@ -15,8 +15,10 @@ export const cd = async (string, currentPath) => {
       });
     });
   }
+
   if (pathName && !path.isAbsolute(pathName)) {
     const result = path.resolve(currentPath, pathName);
+
     return await new Promise((resolve, reject) => {
       fs.access(result, (error) => {
         if (error) reject(new OperationFailedError());

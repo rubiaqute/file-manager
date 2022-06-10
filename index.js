@@ -1,7 +1,7 @@
-import { pipeline } from "stream";
 import * as os from "os";
 import { up } from "./up.js";
 import { cd } from "./cd.js";
+import { ls } from "./ls.js";
 import { errorHandler } from "./errors.js";
 const { stdin, stdout } = process;
 
@@ -21,7 +21,7 @@ stdin.on("data", async (comand) => {
         break;
       }
       case "ls": {
-        console.log("ls");
+        ls(currentPath);
         break;
       }
       default: {
