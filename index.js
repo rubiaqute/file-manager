@@ -2,7 +2,10 @@ import * as os from "os";
 import { up } from "./up.js";
 import { cd } from "./cd.js";
 import { ls } from "./ls.js";
+import { rn } from "./rn.js";
+import { osSystem } from "./os.js";
 import { errorHandler } from "./errors.js";
+
 const { stdin, stdout } = process;
 
 // const user = process.argv.slice(3).split("=")[argv.length - 1];
@@ -20,16 +23,30 @@ stdin.on("data", async (comand) => {
         currentPath = up(currentPath);
         break;
       }
+
       case "ls": {
         ls(currentPath);
         break;
       }
+
       default: {
         if (action.startsWith("cd")) {
-          const newPath = await cd(action, currentPath);
+          const pathName = action.slice(3);
+          const newPath = await cd(pathName, currentPath);
           if (newPath) currentPath = newPath;
           break;
         }
+        if (action.startsWith("rn")) {
+          const argsString = action.slice(3);
+          rn(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("os")) {
+          const argsString = action.slice(3);
+          osSystem(argsString);
+          break;
+        }
+
         console.log("Invalid input");
         break;
       }

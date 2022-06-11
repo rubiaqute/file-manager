@@ -2,9 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { OperationFailedError } from "./errors.js";
 
-export const cd = async (string, currentPath) => {
-  const pathName = string.slice(3);
-
+export const cd = async (pathName, currentPath) => {
   if (pathName && path.isAbsolute(pathName)) {
     const result = path.resolve(pathName);
 
