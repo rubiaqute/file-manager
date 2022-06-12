@@ -10,12 +10,12 @@ import { move } from "./move.js";
 import { remove } from "./remove.js";
 import { hash } from "./hash.js";
 import { compress } from "./compress.js";
+import { decompress } from "./decompress.js";
 import { osSystem } from "./os.js";
 import { errorHandler } from "./errors.js";
 
-const { stdin, stdout } = process;
+const { stdin } = process;
 
-// const user = process.argv.slice(3).split("=")[argv.length - 1];
 let currentPath = os.homedir();
 const user = process.argv.slice(process.argv.length - 1)[0].split("=")[1];
 
@@ -24,7 +24,7 @@ console.log(`You are currently in ${currentPath}`);
 stdin.on("data", async (comand) => {
   try {
     const action = comand.toString().trim();
-    // console.log(process.cwd());
+
     switch (action) {
       case "up": {
         currentPath = up(currentPath);
@@ -33,6 +33,11 @@ stdin.on("data", async (comand) => {
 
       case "ls": {
         ls(currentPath);
+        break;
+      }
+      case ".exit": {
+        process.stdout.write(`\nThank you for using File Manager, ${user}!`);
+        process.exit();
         break;
       }
 
@@ -86,6 +91,11 @@ stdin.on("data", async (comand) => {
         if (action.startsWith("compress ")) {
           const argsString = action.slice(9);
           compress(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("decompress ")) {
+          const argsString = action.slice(11);
+          decompress(argsString, currentPath);
           break;
         }
 
