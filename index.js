@@ -8,6 +8,8 @@ import { add } from "./add.js";
 import { copy } from "./copy.js";
 import { move } from "./move.js";
 import { remove } from "./remove.js";
+import { hash } from "./hash.js";
+import { compress } from "./compress.js";
 import { osSystem } from "./os.js";
 import { errorHandler } from "./errors.js";
 
@@ -74,6 +76,16 @@ stdin.on("data", async (comand) => {
         if (action.startsWith("rm ")) {
           const argsString = action.slice(3);
           remove(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("hash ")) {
+          const argsString = action.slice(5);
+          hash(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("compress ")) {
+          const argsString = action.slice(9);
+          compress(argsString, currentPath);
           break;
         }
 
