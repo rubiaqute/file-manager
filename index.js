@@ -7,6 +7,7 @@ import { read } from "./read.js";
 import { add } from "./add.js";
 import { copy } from "./copy.js";
 import { move } from "./move.js";
+import { remove } from "./remove.js";
 import { osSystem } from "./os.js";
 import { errorHandler } from "./errors.js";
 
@@ -34,28 +35,28 @@ stdin.on("data", async (comand) => {
       }
 
       default: {
-        if (action.startsWith("cd")) {
+        if (action.startsWith("cd ")) {
           const pathName = action.slice(3);
           const newPath = await cd(pathName, currentPath);
           if (newPath) currentPath = newPath;
           break;
         }
-        if (action.startsWith("rn")) {
+        if (action.startsWith("rn ")) {
           const argsString = action.slice(3);
           rn(argsString, currentPath);
           break;
         }
-        if (action.startsWith("os")) {
+        if (action.startsWith("os ")) {
           const argsString = action.slice(3);
           osSystem(argsString);
           break;
         }
-        if (action.startsWith("cat")) {
+        if (action.startsWith("cat ")) {
           const argsString = action.slice(4);
           read(argsString, currentPath);
           break;
         }
-        if (action.startsWith("add")) {
+        if (action.startsWith("add ")) {
           const argsString = action.slice(4);
           add(argsString, currentPath);
           break;
@@ -68,6 +69,11 @@ stdin.on("data", async (comand) => {
         if (action.startsWith("mv ")) {
           const argsString = action.slice(3);
           move(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("rm ")) {
+          const argsString = action.slice(3);
+          remove(argsString, currentPath);
           break;
         }
 
