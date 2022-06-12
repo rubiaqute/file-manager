@@ -3,6 +3,10 @@ import { up } from "./up.js";
 import { cd } from "./cd.js";
 import { ls } from "./ls.js";
 import { rn } from "./rn.js";
+import { read } from "./read.js";
+import { add } from "./add.js";
+import { copy } from "./copy.js";
+import { move } from "./move.js";
 import { osSystem } from "./os.js";
 import { errorHandler } from "./errors.js";
 
@@ -44,6 +48,26 @@ stdin.on("data", async (comand) => {
         if (action.startsWith("os")) {
           const argsString = action.slice(3);
           osSystem(argsString);
+          break;
+        }
+        if (action.startsWith("cat")) {
+          const argsString = action.slice(4);
+          read(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("add")) {
+          const argsString = action.slice(4);
+          add(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("cp ")) {
+          const argsString = action.slice(3);
+          copy(argsString, currentPath);
+          break;
+        }
+        if (action.startsWith("mv ")) {
+          const argsString = action.slice(3);
+          move(argsString, currentPath);
           break;
         }
 
