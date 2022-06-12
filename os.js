@@ -8,7 +8,11 @@ export const osSystem = (arg) => {
     }
     case "--cpus": {
       console.log(`Total amount od CPUS is ${os.cpus().length}`);
-      console.log(os.cpus().map((el) => el.model));
+      console.log(
+        os.cpus().map((el) => {
+          return { model: el.model, speed: Math.round(el.speed / 100) / 10 };
+        })
+      );
       break;
     }
     case "--homedir": {
